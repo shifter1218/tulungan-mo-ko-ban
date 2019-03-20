@@ -15,6 +15,8 @@ import java.util.Scanner;
  */
 public class SecretPhrase {
 
+	public static Random rand;
+	
     static public void guess(String word,int life){
         
         char[] filler = new char[word.length()];
@@ -26,12 +28,33 @@ public class SecretPhrase {
             }
         i++;
         }
-        System.out.println(filler);
-        System.out.println("life remaining = " + life);
         
         Scanner sc = new Scanner(System.in);
         
         ArrayList<Character> alph= new ArrayList<>();
+        
+        char[] c=word.toCharArray();
+        //System.out.println(c);
+        char cHint;
+        for(int a=0;a<3;a++)
+        {
+        	
+        	cHint=c[rand.nextInt(c.length)];
+        	System.out.println(cHint);
+        	alph.add(cHint);
+        	if(word.contains(String.valueOf(cHint))){
+                for (int y=0;y<word.length();y++){
+                    if(word.charAt(y)==cHint){
+                        filler[y]=cHint;
+                    }
+                }
+    
+            }
+        }
+
+        System.out.println(filler);
+        System.out.println("life remaining = " + life);
+        
         
         while(life>0){
             char x=sc.next().charAt(0);
@@ -69,7 +92,7 @@ public class SecretPhrase {
 
     }
     public static void main(String[] args) {
-        Random rand = new Random();
+        rand = new Random();
         
         String[] word = {"welcome to java","passing this semester","ue for the win","fast cars and beer","see you this summer"};
         
@@ -80,5 +103,5 @@ public class SecretPhrase {
         guess(word[rand.nextInt(5)],life);
         
     }
-    
+}
 }
